@@ -143,7 +143,7 @@ class MarsRoverApp(QWidget):
         body = 'Enjoy this photo from the Mars Rover!'
         message.attach(MIMEText(body))
 
-        smtp_server = smtplib.SMTP('smtp.yahoo.com', 587)
+        smtp_server = smtplib.SMTP('smtp.mail.yahoo.com', 587)
         smtp_server.starttls()
         smtp_server.login(sender, 'leomessi@10') 
         smtp_server.sendmail(sender, recipient, message.as_string())
