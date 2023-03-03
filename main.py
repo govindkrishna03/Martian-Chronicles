@@ -1,6 +1,5 @@
 from PyQt5.uic import loadUi
-from PyQt5.QtWidgets import QApplication, QMainWindow ,QLineEdit,QMessageBox
-from PyQt5.QtWidgets import QApplication, QLabel, QPushButton, QListWidget, QListWidgetItem, QFileDialog
+from PyQt5.QtWidgets import QApplication, QLabel, QPushButton, QListWidget, QListWidgetItem, QFileDialog , QMainWindow ,QLineEdit,QMessageBox
 import sys,requests
 from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtCore import QBuffer, QByteArray, QIODevice
@@ -15,7 +14,7 @@ from email.mime.image import MIMEImage
 class MarsRover(QMainWindow):
     def __init__(self):
         super(MarsRover,self).__init__()
-        loadUi('main.ui',self)
+        loadUi('main1.ui',self)
 
         self.image_label=self.findChild(QLabel,"label_4")
         self.image_label.setAlignment(Qt.AlignCenter)
@@ -26,6 +25,7 @@ class MarsRover(QMainWindow):
         self.subject=self.findChild(QLineEdit,"lineEdit_2")
         self.attachbutton=self.findChild(QPushButton,"pushButton_4")
         self.recipients = self.findChild(QLineEdit,"lineEdit")
+        self.body =self.findChild(QLineEdit,"lineEdit_3")
         
 
         self.photo_list.itemClicked.connect(self.display_photo)
@@ -90,7 +90,8 @@ class MarsRover(QMainWindow):
 
     def send_email(self):
         recipients = self.recipients.text().split(',')
-        subject = 'MarsRover'
+        subject = self.subject.text()
+        body = self.body.text()
         
 
         if not recipients:
@@ -114,6 +115,7 @@ class MarsRover(QMainWindow):
             msg['From'] = 'gk5974518@gmail.com'
             msg['To'] = ', '.join(recipients)
             msg['Subject'] = subject
+            msg['Body'] = body
 
 
             image_bytes = QByteArray()
